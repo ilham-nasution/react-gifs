@@ -1,10 +1,28 @@
 body {
   font-family: Helvetica;
+  margin: 24px;
 }
 
-#root {
-  height: 100vh;
+.form {
+  input {
+    font-size: 12px;
+    width: 300px;
+    margin-left: 5px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid lightslategray;
+  }
+}
+
+.gif-list {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  img {
+    margin-right: 16px;
+    margin-top: 16px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 8px -1px black;
+  }
 }

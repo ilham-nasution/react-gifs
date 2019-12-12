@@ -1,18 +1,46 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import giphy from "giphy-api";
+import SearchBar from "./components/SearchBar.jsx";
+import GifList from "./components/GifList.jsx";
 
-import '../assets/stylesheets/application.scss';
+import "../assets/stylesheets/application.scss";
 
-const Hello = ({ name }) => {
-  return (
-    <div>
-      Hello,
-      {name}
-    </div>
-  );
-};
+const GIPHY_API = "X45LzYs59FJHyYfmR9xEZpwRLdsN5LyU";
 
-const root = document.getElementById('root');
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { gifs: [] };
+  }
+  search = query => {
+    giphy({ apiKey: GIPHY_API, https: true }).search(
+      {
+        q: query,
+        rating: "g",
+        limit: 10
+      },
+      (err, res) => {
+        this.setState({
+          gifs: res.data
+        });
+      }
+    );
+  };
+
+  render() {
+    return (
+      <div>
+        <h1>Gifs Search Engine</h1>
+        <SearchBar searchFunction={this.search} />
+        <GifList id={this.state.gifs} />
+      </div>
+    );
+  }
+}
+
+const root = document.getElementById("root");
 if (root) {
-  ReactDOM.render(<Hello name="World" />, root);
+  ReactDOM.render(<App />, root);
 }
